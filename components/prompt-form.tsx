@@ -304,7 +304,7 @@ const PromptForm = (props: Props) => {
             <div className="flex items-start md:items-center justify-between">
               <div className="flex-1 flex flex-row items-center justify-between md:justify-start md:gap-4">
                 <Image
-                  src={"/logo.png"}
+                  src={"/logo.svg"}
                   alt="LIVR Studios"
                   width={134}
                   height={40}
