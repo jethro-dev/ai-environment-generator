@@ -18,7 +18,7 @@ const ReactPhotoSphereViewer = dynamic(
   }
 );
 
-const PanoramaViewer = () => {
+export const PanoramaViewer = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const skybox = useSkybox((state) => state.skybox);
 
@@ -68,4 +68,3 @@ const PanoramaViewer = () => {
   );
 };
 
-export default PanoramaViewer;

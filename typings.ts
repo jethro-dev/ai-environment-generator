@@ -25,7 +25,7 @@ type Skybox = {
 };
 
 type Style = {
-  id: string;
+  id: number;
   name: string;
   description: string;
   "max-char": number;

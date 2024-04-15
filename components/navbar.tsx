@@ -15,25 +15,40 @@ import { Button } from "@/components/ui/button";
 
 type Props = {};
 
-const navbar = (props: Props) => {
+const links = [
+  {
+    id: "about",
+    name: "About",
+    href: "/about",
+  },
+  {
+    id: "creator",
+    name: "Creator",
+    href: "/creator",
+  },
+];
+
+export const Navbar = (props: Props) => {
   return (
-    <div className="fixed top-0 px-8 py-4 z-10 w-full">
-      <div className="h-20 max-w-7xl mx-auto flex items-center justify-between">
-        <div className="flex items-center glassify rounded-lg p-4 ring-[0.4px] ring-neutral-300 ring-inset">
-          <Link href="/">
-            <Image
-              src={"/logo.png"}
-              alt="LIVR Studios"
-              width={172}
-              height={58}
-              className="h-full"
-              priority={true}
-            />
+    <div className="absolute top-0 left-0 right-0 z-50 w-full px-5 container">
+      <div className="w-full  h-20 flex items-center justify-between gap-4 ">
+        <div>
+          <Link href={"/"} className="font-medium text-2xl">
+            SceneAI
           </Link>
+        </div>
+        <div className="flex items-center gap-4">
+          {links.map((link) => (
+            <Link
+              key={link.id}
+              className="text-base font-light transition"
+              href={link.href}
+            >
+              {link.name}
+            </Link>
+          ))}
         </div>
       </div>
     </div>
   );
 };
-
-export default navbar;
