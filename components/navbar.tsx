@@ -31,13 +31,13 @@ const links = [
 export const Navbar = (props: Props) => {
   return (
     <div className="absolute top-0 left-0 right-0 z-50 w-full px-5 container">
-      <div className="w-full  h-20 flex items-center justify-between gap-4 ">
+      <div className="w-full py-6 flex items-center justify-between gap-4">
         <div>
-          <Link href={"/"} className="font-medium text-2xl">
+          <Link href={"/"} className="font-medium text-4xl">
             SceneAI
           </Link>
         </div>
-        <div className="flex items-center gap-4">
+        {/* <div className="flex items-center gap-4">
           {links.map((link) => (
             <Link
               key={link.id}
@@ -47,7 +47,7 @@ export const Navbar = (props: Props) => {
               {link.name}
             </Link>
           ))}
-        </div>
+        </div> */}
       </div>
     </div>
   );

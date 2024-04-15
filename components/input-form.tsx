@@ -33,9 +33,7 @@ import { Loader2 } from "lucide-react";
 import { Checkbox } from "./ui/checkbox";
 import Link from "next/link";
 
-type Prop = {
-  styles: Style[];
-};
+type Prop = {};
 
 const formSchema = z.object({
   prompt: z.string().min(1, {
@@ -47,12 +45,13 @@ const formSchema = z.object({
 
 const DEFAULT_STATUS = "SceneAI is ready";
 
-export function InputForm({ styles }: Prop) {
+export function InputForm({}: Prop) {
   const { setSkybox, skybox } = useSkybox((state) => state);
   const [progress, setProgress] = useState(0);
   const [status, setStatus] = useState<string | null>(DEFAULT_STATUS);
   const [loading, setLoading] = useState(false);
   const [channel, setChannel] = useState(null);
+  const [styles, setStyles] = useState<Style[]>([]);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -116,15 +115,34 @@ export function InputForm({ styles }: Prop) {
     pusherClient.bind("status_update", pusherEventHandler);
   }
 
+  useEffect(() => {
+    let isActive = true; // flag to handle component unmount
+
+    fetchStyles()
+      .then((fetchedData) => {
+        if (isActive) {
+          setStyles(fetchedData);
+        }
+      })
+      .catch((error) => {
+        console.error("Failed to fetch data:", error);
+      });
+
+    return () => {
+      isActive = false;
+    };
+  }, []);
+
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="max-w-5xl mx-auto w-full space-y-4 rounded-2xl bg-black/20 border border-white/10 p-6 backdrop-blur"
+        className="w-full space-y-4 rounded-2xl bg-black/20 border border-white/10 p-6 backdrop-blur"
       >
         <div className="flex items-center justify-between">
           <h2 className="font-light text-sm text-neutral-300">
-            <b>SceneAI</b> - Bringing Scenes to Life.
+            <b className="text-lg font-semibold text-white">SceneAI</b> -
+            Bringing Imagination to Life.
           </h2>
           <div className="flex items-center gap-2">
             <span
@@ -149,10 +167,10 @@ export function InputForm({ styles }: Prop) {
 
               <FormControl>
                 <Textarea
-                  rows={loading ? 1 : 5}
+                  rows={5}
                   placeholder="Share your creative thoughts"
                   {...field}
-                  className="transition rounded-md border border-white/10 bg-black/20 backdrop-blur font-light placeholder:text-neutral-400 resize-none"
+                  className="transition-all duration-300 rounded-md border border-white/10 bg-black/20 backdrop-blur font-light placeholder:text-neutral-400 resize-none min-h-0"
                 />
               </FormControl>
 
